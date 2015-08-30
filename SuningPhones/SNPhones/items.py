@@ -8,7 +8,9 @@
 import scrapy
 
 
-class JdphonesItem(scrapy.Item):
+class SnphonesItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    sku = scrapy.Field()
+    name = scrapy.Field()
+    price = scrapy.Field()
+    comments_num = scrapy.Field()

@@ -2,6 +2,8 @@
 import scrapy
 import json
 
+from JdPhones.items import JdphonesItem
+
 class JDSpider(scrapy.Spider):
     name = 'jd'
     start_urls = ['http://list.jd.com/list.html?cat=9987%2C653%2C655']
@@ -19,11 +21,16 @@ class JDSpider(scrapy.Spider):
             comments_num = int(item.css(".p-commit a::text").extract()[0])
             priceUrl = 'http://p.3.cn/prices/mgets?skuIds=J_' + sku + 'J_'
 
-            item = {
-                "sku": sku,
-                "name": name,
-                "comments_num": comments_num
-            }
+            item = JdphonesItem()
+            item["sku"] = sku
+            item["name"] = name
+            item["comments_num"] = comments_num
+
+            # item = {
+            #     "sku": sku,
+            #     "name": name,
+            #     "comments_num": comments_num
+            # }
 
             request = scrapy.Request(priceUrl,callback=self.parsePrice)
             request.meta['item'] = item
